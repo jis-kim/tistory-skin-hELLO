@@ -153,15 +153,13 @@ module.exports = class {
    * @param {string} container
    * @param {string} headings
    */
-  static anchorHeadings (container, headings) {
+  static appendIconHeadings (container, headings) {
     $(container).find(headings).each(function () {
       const $heading = $(this)
-      const anchor = encodeURIComponent($heading.text()).replace(/[0-9-_.!~*'()\s]/g, '-')
-      const $a = $('<a></a>').attr('href', '#' + anchor).text($heading.text())
-      const htmlContent = $heading.html()
-
-      $a.html(htmlContent)
-      $heading.attr('id', anchor).empty().append($a)
+      // const anchor = encodeURIComponent($heading.text()).replace(/[0-9-_.!~*'()\s]/g, '-')
+      // console.log(anchor)
+      const $i = $('<i class=fa fa-link></i>').attr('class', 'fa fa-link').attr('style', 'margin-left: 5px; font-size: 70%;').attr('onclick', 'copyPostLink()')
+      $heading.append($i)
     })
   }
 
@@ -309,7 +307,8 @@ module.exports = class {
    * @param {string} attr
    */
   static hljs (light, dark, el = 'html', attr = 'data-theme') {
-    const hljs = $(el).attr(attr) === 'dark' ? dark : light
+    // const hljs = $(el).attr(attr) === 'dark' ? dark : light
+    const hljs = dark
 
     $('link#__hljs').attr(
       'href',

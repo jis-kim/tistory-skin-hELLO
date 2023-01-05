@@ -9,7 +9,7 @@ mixin permalink(pageType, type, hasCategory=true)
 script.
   /* Permalink */
   $(document).ready(() => {
-    h.anchorHeadings('.permalink .contents_style', '> h2, > h3, > h4') // Add 'a' tag into headings
+    h.appendIconHeadings('.permalink .contents_style', '> h2, > h3, > h4')
 
     h.scrollspy({
       context: '.permalink .contents_style',

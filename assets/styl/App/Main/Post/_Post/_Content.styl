@@ -35,6 +35,10 @@
         h2, h3, h4
           &, a
             color var(--h-color)
+          & > .fa
+            opacity 0
+          &:hover > .fa
+            opacity .3
         blockquote[data-ke-style=style2],
         blockquote[data-ke-style=style3],
         ul li, table td, table th,
@@ -138,8 +142,8 @@
           padding 0
           background none !important
           code
-            background-color var(--h-color-background-level-2) !important
             padding 15px
+            background-color none
             font-family 'D2Coding'
             border 0
       @media screen and (max-width: 1200px)
