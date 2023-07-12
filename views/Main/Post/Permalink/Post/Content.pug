@@ -41,14 +41,14 @@ script(once='alpine-content-component').
       this.setRatioToImages()
       this.setPositionToImages()
 
-      this.highlightCodeBlocks()
+      this.highlightCodeBlocks().then( () => this.setCodeBlockNumbers() )
     },
 
     /**
      * Syntax highlighting code blocks in template
      */
-    highlightCodeBlocks () {
-      this.$article.querySelectorAll('pre code').forEach(hljs.highlightElement)
+    async highlightCodeBlocks () {
+      await this.$article.querySelectorAll('pre code').forEach(hljs.highlightElement)
     },
 
     /**
@@ -278,6 +278,82 @@ script(once='alpine-content-component').
 
       $heading.setAttribute('id', link)
       $heading.innerHTML = $anchor.outerHTML
+    },
+
+    /**
+     * Set Code block numbers
+     * @Author Jisu Kim <helloj242@Gmail.com>
+     *
+     */
+    setCodeBlockNumbers () {
+      const codeBlocks = this.$article.querySelectorAll('pre code')
+      const prevSpanBlock = null // flag 로 사용한다
+      var COPY_BUTTON_TEXT_BEFORE = 'Copy'
+      for (const codeBlock of codeBlocks) {
+        this.setOneCodeBlock(codeBlock, prevSpanBlock)
+      }
+    },
+
+    /**
+     * Set Code block numbers
+     * @Author Jisu Kim
+     */
+    setOneCodeBlock(codeBlock, prevSpanBlock) {
+      const codes = codeBlock.innerHTML.match(/(.*)(\n|.*$)/g)
+      // reduce 로 코드 블럭을 합산한다.
+      const processedCodes = codes.reduce((prevCodes, curCode) => {
+        const closeSpan = '</span>'
+        if (prevSpanBlock != null) {
+          curCode = prevSpanBlock + curCode
+          if (curCode.match(/<\/span>/) != null) {
+            prevSpanBlock = null
+          } else {
+            curCode += closeSpan
+          }
+        } else { // no prevSpanBlock
+          const spanBlock = curCode.match(/<span.*?>/) // span tag start
+          if (spanBlock != null && curCode.match(/<\/span>/) == null) {
+            prevSpanBlock = spanBlock
+            curCode += closeSpan
+          }
+        }
+        return prevCodes + `<div class="line">${curCode}</div>`
+      }
+      , '')
+
+      const COPY_TEXT_CHANGE_OFFSET = 1000
+      const COPY_BUTTON_TEXT_AFTER = 'Copied'
+      const COPY_ERROR_MESSAGE = '코드를 복사할 수 없습니다. 다시 시도해 주세요.'
+      const copyBlockCode = async (target = null) => {
+        if (!target) return
+        try {
+          const code = decodeURI(target.dataset.code)
+          await navigator.clipboard.writeText(code)
+          target.textContent = COPY_BUTTON_TEXT_AFTER
+          setTimeout(() => {
+            target.textContent = COPY_BUTTON_TEXT_BEFORE
+          }, COPY_TEXT_CHANGE_OFFSET)
+        } catch (error) {
+          alert(COPY_ERROR_MESSAGE)
+          console.error(error)
+        }
+      }
+
+      const copyButton = `<button type="button" class="copy-btn"
+      data-code="${encodeURI(codeBlock.textContent)}"
+      onclick="copyBlockCode(this)">Copy</button>`
+
+      const codeBody = `<div class="code-body">${processedCodes}</div>`
+
+      const codeHeader = `
+      <div class="code-header">
+      <span class="red btn"></span>
+      <span class="yellow btn"></span>
+      <span class="green btn"></span>
+      ${copyButton}
+      </div>`
+
+      codeBlock.innerHTML = codeHeader + codeBody
     },
 
     /**
