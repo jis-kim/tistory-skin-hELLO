@@ -41,14 +41,15 @@ script(once='alpine-content-component').
       this.setRatioToImages()
       this.setPositionToImages()
 
-      this.highlightCodeBlocks().then( () => this.setCodeBlockNumbers() )
+      this.highlightCodeBlocks()
+      this.setCodeBlockNumbers()
     },
 
     /**
      * Syntax highlighting code blocks in template
      */
-    async highlightCodeBlocks () {
-      await this.$article.querySelectorAll('pre code').forEach(hljs.highlightElement)
+    highlightCodeBlocks () {
+      this.$article.querySelectorAll('pre code').forEach(hljs.highlightElement)
     },
 
     /**
