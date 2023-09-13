@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <skin>
    <information>
-      <name>hELLO</name>
+      <name>hELLO_custom</name>
       <version>4.2.1</version>
       <description>
          <![CDATA[ⓒ 2020-2023. Sangwoo Jeong.]]>
@@ -95,14 +95,14 @@
          <label>코드 하이라이팅(라이트)</label>
          <description><![CDATA[ 코드 하이라이팅(라이트) ]]></description>
          <type>STRING</type>
-         <default>xcode</default>
+         <default>base16/decaf</default>
        </variable>
        <variable>
          <name>hljs-dark</name>
          <label>코드 하이라이팅(다크)</label>
          <description><![CDATA[ 코드 하이라이팅(다크) ]]></description>
          <type>STRING</type>
-         <default>vs2015</default>
+         <default>base16/decaf</default>
        </variable>
        <variable>
          <name>foldable-reply</name>

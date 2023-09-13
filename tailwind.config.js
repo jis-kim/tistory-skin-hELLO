@@ -26,7 +26,8 @@ module.exports = {
         800: '#1e1f21',
         900: '#000000',
         blue: '#5db0d7',
-        orange: '#ff5544'
+        orange: '#ff5544',
+        mildorange: '#fa8471',
       }
     },
     extend: {

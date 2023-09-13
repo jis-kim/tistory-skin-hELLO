@@ -15,9 +15,6 @@ pre::after {
   padding: 0 !important;
   font-size: 14px;
   border-radius: 8px;
-  box-shadow: 0 12px 24px rgb(0 0 0 / 40%);
-  color: #cfd2d1;
-  background-color: #343131;
   font-family: Menlo, Courier, monospace;
 }
 .hljs .line {
@@ -43,7 +40,7 @@ pre::after {
   display: flex;
   align-items: center;
   padding: 12px;
-  background-color: #434041;
+  background-color: #37373b;
   border-radius: 8px 8px 0 0;
 }
 .hljs .code-header .btn {
@@ -90,5 +87,5 @@ pre::after {
   transition: 0.2s background-color;
 }
 .hljs .copy-btn:hover {
-  background-color: #555152;
+  background-color: #424349;
 }

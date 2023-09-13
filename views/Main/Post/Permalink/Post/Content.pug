@@ -619,12 +619,18 @@ style(once='content')
           }
         }
 
+        p {
+          code {
+            @apply text-h-mildorange dark:text-h-mildorange
+          }
+        }
+
         pre {
           code {
             @apply px-4 leading-normal;
 
             &.hljs {
-              @apply bg-h-200 dark:bg-h-700;
+              @apply bg-h-700 dark:bg-h-700;
             }
           }
         }
