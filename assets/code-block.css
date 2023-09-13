@@ -22,7 +22,7 @@ pre::after {
   line-height: 1.5;
 }
 .hljs .line:hover {
-  background-color: #262830;
+  background-color: #333641;
 }
 .hljs .line:hover::before {
   color: #cfd2d1;

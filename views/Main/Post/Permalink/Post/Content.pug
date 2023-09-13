@@ -324,6 +324,7 @@ script(once='alpine-content-component').
 
       const COPY_TEXT_CHANGE_OFFSET = 1000
       const COPY_BUTTON_TEXT_AFTER = 'Copied'
+      const COPY_BUTTON_TEXT_BEFORE = 'Copy'
       const COPY_ERROR_MESSAGE = '코드를 복사할 수 없습니다. 다시 시도해 주세요.'
       const copyBlockCode = async (target = null) => {
         if (!target) return
@@ -340,21 +341,31 @@ script(once='alpine-content-component').
         }
       }
 
-      const copyButton = `<button type="button" class="copy-btn"
-      data-code="${encodeURI(codeBlock.textContent)}"
-      onclick="copyBlockCode(this)">Copy</button>`
+      //-const copyButton = document.createElement("button")
+      //-copyButton.type = "button"
+      //-copyButton.className = "copy-btn"
+      //-copyButton.textContent = 'Copy'
+      //-copyButton.dataset.code = 'hello'
 
-      const codeBody = `<div class="code-body">${processedCodes}</div>`
+      //-copyButton.addEventListener("click", () => {
+      //-  console.log('copy button clicked')
+      //-})
 
-      const codeHeader = `
-      <div class="code-header">
-      <span class="red btn"></span>
-      <span class="yellow btn"></span>
-      <span class="green btn"></span>
-      ${copyButton}
-      </div>`
+      //-const codeBody = `<div class="code-body">${processedCodes}</div>`
 
-      codeBlock.innerHTML = codeHeader + codeBody
+      const codeBody = document.createElement("div")
+      codeBody.className = "code-body"
+      codeBody.innerHTML = processedCodes
+
+      const codeHeader = document.createElement("div")
+      codeHeader.className = "code-header"
+
+      codeHeader.innerHTML = `<span class="red btn"></span><span class="yellow btn"></span><span class="green btn"></span>`
+      //-codeHeader.appendChild(copyButton)
+
+      codeBlock.innerHTML=''
+      codeBlock.appendChild(codeHeader)
+      codeBlock.appendChild(codeBody)
     },
 
     /**
